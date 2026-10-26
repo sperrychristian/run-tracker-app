@@ -1,0 +1,59 @@
+<%- include('partials/head', { title: 'Dashboard', active: 'dashboard' }) %>
+
+<%# big banner at the top with the headline numbers and the main button %>
+<section class="rl-hero mb-4">
+  <h1>Keep moving</h1>
+  <p><%= run_count %> runs and <%= total_miles %> miles logged so far.</p>
+  <a href="/runs/new" class="btn btn-primary btn-lg">Log a run</a>
+</section>
+
+<%# three stat tiles across the top %>
+<div class="row g-3 mb-4">
+  <div class="col-md-4"><%- include('partials/statTile', { label: 'Total miles', value: total_miles, unit: 'mi' }) %></div>
+  <div class="col-md-4"><%- include('partials/statTile', { label: 'Runs logged', value: run_count }) %></div>
+  <div class="col-md-4"><%- include('partials/statTile', { label: 'Average pace', value: average_pace, unit: '/mi' }) %></div>
+</div>
+
+<%# weekly mileage chart, the data rides on the canvas and dashboardChart.js reads it %>
+<div class="rl-card rl-card-pad mb-4">
+  <h2 class="section-title">Weekly mileage</h2>
+  <canvas id="weekly_chart" height="100"
+    data-labels="<%= JSON.stringify(week_labels) %>"
+    data-miles="<%= JSON.stringify(week_miles) %>"></canvas>
+</div>
+
+<div class="row g-4">
+  <div class="col-lg-7">
+    <h2 class="section-title">Recent runs</h2>
+    <div class="rl-card rl-list">
+      <% recent_runs.forEach(function(one_run) { %>
+        <%- include('partials/runCard', { one_run: one_run }) %>
+      <% }) %>
+      <% if (recent_runs.length === 0) { %>
+        <%- include('partials/emptyState', { message: 'No runs yet, log your first one.', link_href: '/runs/new', link_text: 'Log a run' }) %>
+      <% } %>
+    </div>
+  </div>
+  <div class="col-lg-5">
+    <h2 class="section-title">Shoes close to retirement</h2>
+    <div class="rl-card rl-list">
+      <% shoes_near_retirement.forEach(function(one_shoe) { %>
+        <a href="/shoes/<%= one_shoe.id %>" class="run-row">
+          <div class="run-main">
+            <div class="run-title"><%= one_shoe.name %></div>
+            <div class="run-meta"><%= one_shoe.brand %></div>
+          </div>
+          <span class="pill pill-hot"><%= one_shoe.miles_left %> mi left</span>
+        </a>
+      <% }) %>
+      <% if (shoes_near_retirement.length === 0) { %>
+        <%- include('partials/emptyState', { message: 'All your shoes have plenty of miles left.' }) %>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/js/dashboardChart.js"></script>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,10 @@
+<%# one labeled input, i pass in label, name, type, and optionally value and attrs %>
+<label for="<%= name %>" class="form-label"><%= label %></label>
+<input
+  type="<%= type %>"
+  class="form-control"
+  id="<%= name %>"
+  name="<%= name %>"
+  value="<%= typeof value !== 'undefined' ? value : '' %>"
+  <%- typeof attrs !== 'undefined' ? attrs : '' %>
+>

@@ -1,0 +1,18 @@
+<%# my navbar, active just highlights the page i'm on %>
+<nav class="navbar navbar-expand-lg rl-nav">
+  <div class="container">
+    <a class="rl-brand" href="/"><span class="rl-brand-mark"></span>Running Log</a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="main_nav">
+      <ul class="navbar-nav ms-lg-4 me-auto">
+        <li class="nav-item"><a class="nav-link <%= active === 'dashboard' ? 'active' : '' %>" href="/">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link <%= active === 'runs' ? 'active' : '' %>" href="/runs">Runs</a></li>
+        <li class="nav-item"><a class="nav-link <%= active === 'shoes' ? 'active' : '' %>" href="/shoes">Shoes</a></li>
+        <li class="nav-item"><a class="nav-link <%= active === 'routes' ? 'active' : '' %>" href="/routes">Routes</a></li>
+      </ul>
+      <a href="/runs/new" class="btn btn-primary mt-3 mt-lg-0">Log a run</a>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,32 @@
+<%- include('../partials/head', { title: 'Routes', active: 'routes' }) %>
+
+<%- include('../partials/pageHeader', { heading: 'Routes', subtitle: 'Your go-to loops and trails', button_href: '/routes/new', button_text: 'Add a route' }) %>
+
+<div class="rl-card overflow-hidden">
+  <div class="table-responsive">
+    <table class="rl-table mb-0">
+      <thead>
+        <tr><th>Name</th><th>Distance</th><th>Surface</th><th>Times run</th></tr>
+      </thead>
+      <tbody>
+        <% all_routes.forEach(function(one_route) { %>
+          <%
+            // color the surface pill by type
+            const surface_class = one_route.surface === 'trail' ? 'pill-volt' : (one_route.surface === 'track' ? 'pill-hot' : 'pill-cool');
+          %>
+          <tr>
+            <td class="fw-semibold"><%= one_route.name %></td>
+            <td><%= Number(one_route.distanceMiles).toFixed(2) %> mi</td>
+            <td><span class="pill <%= surface_class %>"><%= one_route.surface %></span></td>
+            <td><%= one_route.runs.length %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <% if (all_routes.length === 0) { %>
+    <%- include('../partials/emptyState', { message: 'No routes saved yet.', link_href: '/routes/new', link_text: 'Add a route' }) %>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>

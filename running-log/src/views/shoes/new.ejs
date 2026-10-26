@@ -1,0 +1,18 @@
+<%- include('../partials/head', { title: 'Add shoe', active: 'shoes' }) %>
+
+<%- include('../partials/pageHeader', { heading: 'Add a shoe', subtitle: 'New pair, zero miles' }) %>
+
+<form action="/shoes" method="POST" class="rl-card rl-card-pad">
+  <div class="row g-3">
+    <div class="col-md-6"><%- include('../partials/formField', { label: 'Name', name: 'name', type: 'text', attrs: 'required' }) %></div>
+    <div class="col-md-6"><%- include('../partials/formField', { label: 'Brand', name: 'brand', type: 'text', attrs: 'required' }) %></div>
+    <div class="col-md-6"><%- include('../partials/formField', { label: 'Purchase date', name: 'purchaseDate', type: 'date' }) %></div>
+    <div class="col-md-6"><%- include('../partials/formField', { label: 'Retire at (miles)', name: 'retireAtMiles', type: 'number', value: 400, attrs: 'min="1"' }) %></div>
+  </div>
+  <div class="mt-4 d-flex gap-2">
+    <button type="submit" class="btn btn-primary">Save shoe</button>
+    <a href="/shoes" class="btn btn-ghost">Cancel</a>
+  </div>
+</form>
+
+<%- include('../partials/footer') %>

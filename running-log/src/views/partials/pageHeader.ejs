@@ -1,0 +1,10 @@
+<%# title block for the top of a page, i pass in heading and optionally subtitle, button_href, button_text %>
+<div class="page-header">
+  <div>
+    <h1><%= heading %></h1>
+    <% if (typeof subtitle !== 'undefined') { %><p><%= subtitle %></p><% } %>
+  </div>
+  <% if (typeof button_href !== 'undefined') { %>
+    <a href="<%= button_href %>" class="btn btn-primary"><%= button_text %></a>
+  <% } %>
+</div>

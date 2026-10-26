@@ -1,0 +1,69 @@
+<%# shared run form, new and edit both use it, form_action and run_values come from the page %>
+<%
+  // figuring out which shoe, route, and tags are already picked
+  const selected_shoe_id = run_values.shoe ? run_values.shoe.id : (Number(run_values.shoeId) || null);
+  const selected_route_id = run_values.route ? run_values.route.id : (Number(run_values.routeId) || null);
+  const selected_tag_ids = [].concat(run_values.tags || []).map(one_tag => Number(one_tag.id || one_tag));
+%>
+
+<% if (typeof errors !== 'undefined' && errors.length) { %>
+  <div class="alert alert-danger rounded-4">
+    <ul class="mb-0">
+      <% errors.forEach(function(one_error) { %>
+        <li><%= one_error.msg %></li>
+      <% }) %>
+    </ul>
+  </div>
+<% } %>
+
+<form action="<%= form_action %>" method="POST" class="rl-card rl-card-pad">
+  <div class="row g-3">
+    <div class="col-md-4">
+      <%- include('formField', { label: 'Date', name: 'runDate', type: 'date', value: run_values.runDate, attrs: 'required' }) %>
+    </div>
+    <div class="col-md-4">
+      <%- include('formField', { label: 'Distance (miles)', name: 'distanceMiles', type: 'number', value: run_values.distanceMiles, attrs: 'step="0.01" min="0" required' }) %>
+    </div>
+    <div class="col-md-4">
+      <%- include('formField', { label: 'Duration (minutes)', name: 'durationMinutes', type: 'number', value: run_values.durationMinutes, attrs: 'step="0.01" min="0" required' }) %>
+    </div>
+    <div class="col-md-4">
+      <%- include('formField', { label: 'Effort (1 to 10)', name: 'effort', type: 'number', value: run_values.effort, attrs: 'min="1" max="10"' }) %>
+    </div>
+    <div class="col-md-4">
+      <label for="shoeId" class="form-label">Shoe</label>
+      <select class="form-select" id="shoeId" name="shoeId">
+        <option value="">No shoe</option>
+        <% all_shoes.forEach(function(one_shoe) { %>
+          <option value="<%= one_shoe.id %>" <%= selected_shoe_id === one_shoe.id ? 'selected' : '' %>><%= one_shoe.name %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label for="routeId" class="form-label">Route</label>
+      <select class="form-select" id="routeId" name="routeId">
+        <option value="">No route</option>
+        <% all_routes.forEach(function(one_route) { %>
+          <option value="<%= one_route.id %>" <%= selected_route_id === one_route.id ? 'selected' : '' %>><%= one_route.name %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="col-12">
+      <label class="form-label d-block">Tags</label>
+      <div class="d-flex flex-wrap gap-2">
+        <% all_tags.forEach(function(one_tag) { %>
+          <input class="btn-check" type="checkbox" name="tags" id="tag_<%= one_tag.id %>" value="<%= one_tag.id %>" autocomplete="off" <%= selected_tag_ids.includes(one_tag.id) ? 'checked' : '' %>>
+          <label class="btn tag-chip" for="tag_<%= one_tag.id %>"><%= one_tag.name %></label>
+        <% }) %>
+      </div>
+    </div>
+    <div class="col-12">
+      <label for="notes" class="form-label">Notes</label>
+      <textarea class="form-control" id="notes" name="notes" rows="3"><%= run_values.notes || '' %></textarea>
+    </div>
+  </div>
+  <div class="mt-4 d-flex gap-2">
+    <button type="submit" class="btn btn-primary">Save run</button>
+    <a href="/runs" class="btn btn-ghost">Cancel</a>
+  </div>
+</form>

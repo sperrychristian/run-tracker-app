@@ -1,0 +1,14 @@
+<%- include('../partials/head', { title: 'Runs', active: 'runs' }) %>
+
+<%- include('../partials/pageHeader', { heading: 'All runs', subtitle: 'Every mile you have logged', button_href: '/runs/new', button_text: 'Log a run' }) %>
+
+<div class="rl-card rl-list">
+  <% all_runs.forEach(function(one_run) { %>
+    <%- include('../partials/runCard', { one_run: one_run }) %>
+  <% }) %>
+  <% if (all_runs.length === 0) { %>
+    <%- include('../partials/emptyState', { message: 'No runs yet.', link_href: '/runs/new', link_text: 'Log your first run' }) %>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>

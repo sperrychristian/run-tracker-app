@@ -1,0 +1,24 @@
+<%- include('../partials/head', { title: 'Add route', active: 'routes' }) %>
+
+<%- include('../partials/pageHeader', { heading: 'Add a route', subtitle: 'Save it once, pick it every run' }) %>
+
+<form action="/routes" method="POST" class="rl-card rl-card-pad">
+  <div class="row g-3">
+    <div class="col-md-5"><%- include('../partials/formField', { label: 'Name', name: 'name', type: 'text', attrs: 'required' }) %></div>
+    <div class="col-md-4"><%- include('../partials/formField', { label: 'Distance (miles)', name: 'distanceMiles', type: 'number', attrs: 'step="0.01" min="0" required' }) %></div>
+    <div class="col-md-3">
+      <label for="surface" class="form-label">Surface</label>
+      <select class="form-select" id="surface" name="surface">
+        <option value="road">Road</option>
+        <option value="trail">Trail</option>
+        <option value="track">Track</option>
+      </select>
+    </div>
+  </div>
+  <div class="mt-4 d-flex gap-2">
+    <button type="submit" class="btn btn-primary">Save route</button>
+    <a href="/routes" class="btn btn-ghost">Cancel</a>
+  </div>
+</form>
+
+<%- include('../partials/footer') %>

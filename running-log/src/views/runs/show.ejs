@@ -1,0 +1,55 @@
+<%- include('../partials/head', { title: 'Run details', active: 'runs' }) %>
+
+<%
+  // working out pace as minutes and seconds per mile
+  const pace_total_seconds = Math.round((Number(one_run.durationMinutes) / Number(one_run.distanceMiles)) * 60);
+  const pace_minutes = Math.floor(pace_total_seconds / 60);
+  const pace_seconds = String(pace_total_seconds % 60).padStart(2, '0');
+%>
+
+<%- include('../partials/pageHeader', { heading: 'Run details', subtitle: one_run.runDate }) %>
+
+<%# four quick stats across the top %>
+<div class="row g-3 mb-3">
+  <div class="col-6 col-md-3"><%- include('../partials/statTile', { label: 'Distance', value: Number(one_run.distanceMiles).toFixed(2), unit: 'mi' }) %></div>
+  <div class="col-6 col-md-3"><%- include('../partials/statTile', { label: 'Duration', value: Number(one_run.durationMinutes).toFixed(1), unit: 'min' }) %></div>
+  <div class="col-6 col-md-3"><%- include('../partials/statTile', { label: 'Pace', value: pace_minutes + ':' + pace_seconds, unit: '/mi' }) %></div>
+  <div class="col-6 col-md-3"><%- include('../partials/statTile', { label: 'Effort', value: one_run.effort ? one_run.effort : 'N/A', unit: one_run.effort ? '/10' : '' }) %></div>
+</div>
+
+<div class="rl-card rl-card-pad">
+  <div class="detail-row">
+    <div class="detail-key">Shoe</div>
+    <div>
+      <% if (one_run.shoe) { %><a href="/shoes/<%= one_run.shoe.id %>"><%= one_run.shoe.name %></a><% } else { %>None<% } %>
+    </div>
+  </div>
+  <div class="detail-row">
+    <div class="detail-key">Route</div>
+    <div><%= one_run.route ? one_run.route.name : 'None' %></div>
+  </div>
+  <div class="detail-row">
+    <div class="detail-key">Tags</div>
+    <div class="d-flex flex-wrap gap-1">
+      <% one_run.tags.forEach(function(one_tag) { %>
+        <span class="pill pill-muted"><%= one_tag.name %></span>
+      <% }) %>
+      <% if (one_run.tags.length === 0) { %>None<% } %>
+    </div>
+  </div>
+  <div class="detail-row">
+    <div class="detail-key">Notes</div>
+    <div><%= one_run.notes || 'No notes' %></div>
+  </div>
+
+  <div class="d-flex flex-wrap gap-2 mt-4">
+    <a href="/runs/<%= one_run.id %>/edit" class="btn btn-primary">Edit</a>
+    <%# delete is a post form because browsers only send get and post %>
+    <form action="/runs/<%= one_run.id %>/delete" method="POST" onsubmit="return confirm('Delete this run?');">
+      <button type="submit" class="btn btn-ghost-danger">Delete</button>
+    </form>
+    <a href="/runs" class="btn btn-ghost ms-auto">Back to runs</a>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

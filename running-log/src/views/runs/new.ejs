@@ -1,0 +1,6 @@
+<%- include('../partials/head', { title: 'New run', active: 'runs' }) %>
+
+<%- include('../partials/pageHeader', { heading: 'Log a run', subtitle: 'Add the details while they are fresh' }) %>
+<%- include('../partials/runForm', { form_action: '/runs', run_values: typeof run_values !== 'undefined' ? run_values : {} }) %>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,518 @@
+/* my color and spacing variables, everything else pulls from these */
+:root {
+  --rl-bg: #0b0d10;
+  --rl-surface: #14181d;
+  --rl-surface-2: #1b2027;
+  --rl-border: #262d36;
+  --rl-text: #e8ecf1;
+  --rl-muted: #8a94a3;
+  --rl-accent: #c8ff2e;
+  --rl-accent-ink: #0b0d10;
+  --rl-hot: #ff5a36;
+  --rl-cool: #35d0ff;
+  --rl-radius: 16px;
+  --rl-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+}
+
+/* telling bootstrap's dark mode to use my colors */
+[data-bs-theme="dark"] {
+  --bs-body-bg: var(--rl-bg);
+  --bs-body-color: var(--rl-text);
+  --bs-border-color: var(--rl-border);
+  --bs-secondary-color: var(--rl-muted);
+}
+
+/* page background with a soft green glow in the corner */
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background: radial-gradient(1100px 500px at 85% -10%, rgba(200, 255, 46, 0.08), transparent 60%), var(--rl-bg);
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--rl-accent);
+}
+
+/* headings get the tall italic sports look */
+h1, h2, h3, h4 {
+  font-family: var(--rl-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- navbar ---------- */
+.rl-nav {
+  background: rgba(11, 13, 16, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rl-border);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.rl-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--rl-display);
+  font-size: 1.7rem;
+  font-weight: 800;
+  font-style: italic;
+  text-transform: uppercase;
+  color: var(--rl-text);
+  text-decoration: none;
+}
+
+/* little slanted block next to the name */
+.rl-brand-mark {
+  width: 14px;
+  height: 22px;
+  background: var(--rl-accent);
+  transform: skewX(-18deg);
+  border-radius: 2px;
+  box-shadow: 0 0 16px rgba(200, 255, 46, 0.6);
+}
+
+.rl-nav .nav-link {
+  position: relative;
+  color: var(--rl-muted);
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+}
+
+.rl-nav .nav-link:hover,
+.rl-nav .nav-link.active {
+  color: var(--rl-text);
+}
+
+/* green underline on the page i'm on */
+.rl-nav .nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: -2px;
+  height: 3px;
+  background: var(--rl-accent);
+  border-radius: 2px;
+}
+
+/* ---------- buttons ---------- */
+.btn-primary {
+  --bs-btn-bg: var(--rl-accent);
+  --bs-btn-border-color: var(--rl-accent);
+  --bs-btn-color: var(--rl-accent-ink);
+  --bs-btn-hover-bg: #d9ff6b;
+  --bs-btn-hover-border-color: #d9ff6b;
+  --bs-btn-hover-color: var(--rl-accent-ink);
+  --bs-btn-active-bg: #b5e820;
+  --bs-btn-active-border-color: #b5e820;
+  --bs-btn-active-color: var(--rl-accent-ink);
+  border-radius: 999px;
+  padding: 0.55rem 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* outlined buttons for secondary actions */
+.btn-ghost,
+.btn-ghost-danger {
+  background: transparent;
+  border: 1px solid var(--rl-border);
+  color: var(--rl-text);
+  border-radius: 999px;
+  padding: 0.55rem 1.3rem;
+  font-weight: 600;
+}
+
+.btn-ghost:hover {
+  border-color: var(--rl-accent);
+  color: var(--rl-accent);
+}
+
+.btn-ghost-danger:hover {
+  border-color: var(--rl-hot);
+  color: var(--rl-hot);
+}
+
+/* ---------- cards ---------- */
+.rl-card {
+  background: var(--rl-surface);
+  border: 1px solid var(--rl-border);
+  border-radius: var(--rl-radius);
+}
+
+.rl-card-pad {
+  padding: 1.25rem 1.5rem;
+}
+
+/* cards that are whole links lift up on hover */
+.rl-card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.15s, border-color 0.15s;
+}
+
+.rl-card-link:hover {
+  transform: translateY(-3px);
+  border-color: var(--rl-accent);
+  color: inherit;
+}
+
+/* ---------- page header and section titles ---------- */
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-style: italic;
+}
+
+.page-header p {
+  margin: 0;
+  color: var(--rl-muted);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.15rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+
+.section-title::before {
+  content: "";
+  width: 4px;
+  height: 1.1rem;
+  background: var(--rl-accent);
+  border-radius: 2px;
+}
+
+/* ---------- dashboard hero ---------- */
+.rl-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 2.5rem;
+  border-radius: 24px;
+  border: 1px solid var(--rl-border);
+  background: linear-gradient(135deg, #1d2d07 0%, #12161b 55%, #0f1318 100%);
+}
+
+.rl-hero::after {
+  content: "";
+  position: absolute;
+  right: -80px;
+  top: -80px;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(200, 255, 46, 0.28), transparent 65%);
+  pointer-events: none;
+}
+
+.rl-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.rl-hero h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-style: italic;
+}
+
+.rl-hero p {
+  color: var(--rl-muted);
+  font-size: 1.05rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ---------- stat tiles ---------- */
+.stat-tile {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  padding: 1.25rem 1.5rem;
+  background: var(--rl-surface);
+  border: 1px solid var(--rl-border);
+  border-radius: var(--rl-radius);
+}
+
+/* green edge on the left of each tile */
+.stat-tile::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--rl-accent);
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rl-muted);
+}
+
+.stat-value {
+  font-family: var(--rl-display);
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.stat-unit {
+  margin-left: 0.3rem;
+  font-family: "Inter", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--rl-muted);
+}
+
+/* ---------- run rows ---------- */
+.rl-list {
+  overflow: hidden;
+}
+
+.run-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1.1rem;
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--rl-border);
+  transition: background 0.15s;
+}
+
+.run-row:last-child {
+  border-bottom: 0;
+}
+
+.run-row:hover {
+  background: var(--rl-surface-2);
+  color: inherit;
+}
+
+.date-chip {
+  flex-shrink: 0;
+  width: 52px;
+  padding: 0.3rem 0;
+  text-align: center;
+  background: var(--rl-surface-2);
+  border: 1px solid var(--rl-border);
+  border-radius: 12px;
+}
+
+.date-chip .day {
+  font-family: var(--rl-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.date-chip .month {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rl-accent);
+}
+
+.run-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.run-title {
+  font-weight: 600;
+}
+
+.run-meta {
+  font-size: 0.85rem;
+  color: var(--rl-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.run-distance {
+  font-family: var(--rl-display);
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1;
+  text-align: right;
+}
+
+.run-distance small {
+  display: block;
+  font-family: "Inter", sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rl-muted);
+}
+
+/* ---------- pills ---------- */
+.pill {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.pill-cool { background: rgba(53, 208, 255, 0.14); color: var(--rl-cool); }
+.pill-volt { background: rgba(200, 255, 46, 0.14); color: var(--rl-accent); }
+.pill-hot { background: rgba(255, 90, 54, 0.16); color: var(--rl-hot); }
+.pill-muted { background: var(--rl-surface-2); color: var(--rl-muted); border: 1px solid var(--rl-border); }
+
+/* ---------- progress bar for shoe mileage ---------- */
+.rl-progress {
+  height: 10px;
+  overflow: hidden;
+  background: var(--rl-surface-2);
+  border-radius: 999px;
+}
+
+.rl-progress-bar {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #8fd400, var(--rl-accent));
+}
+
+/* turns orange when the shoe is almost done */
+.rl-progress-bar.warn {
+  background: linear-gradient(90deg, #ffb020, var(--rl-hot));
+}
+
+/* ---------- forms ---------- */
+.form-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rl-muted);
+}
+
+.form-control,
+.form-select {
+  padding: 0.65rem 0.9rem;
+  background-color: var(--rl-surface-2);
+  border: 1px solid var(--rl-border);
+  border-radius: 12px;
+  color: var(--rl-text);
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: var(--rl-surface-2);
+  border-color: var(--rl-accent);
+  box-shadow: 0 0 0 0.2rem rgba(200, 255, 46, 0.15);
+  color: var(--rl-text);
+}
+
+/* tags show up as pills i can toggle */
+.tag-chip {
+  padding: 0.35rem 0.95rem;
+  background: var(--rl-surface-2);
+  border: 1px solid var(--rl-border);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--rl-muted);
+}
+
+.btn-check:checked + .tag-chip {
+  background: var(--rl-accent);
+  border-color: var(--rl-accent);
+  color: var(--rl-accent-ink);
+}
+
+/* ---------- table on the routes page ---------- */
+.rl-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.rl-table th {
+  padding: 0.85rem 1.1rem;
+  background: var(--rl-surface-2);
+  border-bottom: 1px solid var(--rl-border);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rl-muted);
+}
+
+.rl-table td {
+  padding: 0.95rem 1.1rem;
+  border-bottom: 1px solid var(--rl-border);
+}
+
+.rl-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.rl-table tbody tr:hover td {
+  background: var(--rl-surface-2);
+}
+
+/* ---------- run detail rows ---------- */
+.detail-row {
+  display: flex;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--rl-border);
+}
+
+.detail-row:last-child {
+  border-bottom: 0;
+}
+
+.detail-key {
+  flex-shrink: 0;
+  width: 110px;
+  padding-top: 0.15rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rl-muted);
+}
+
+/* ---------- empty state and footer ---------- */
+.empty-state {
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  color: var(--rl-muted);
+}
+
+.rl-footer {
+  margin-top: 3rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--rl-border);
+  font-size: 0.8rem;
+  text-align: center;
+  color: var(--rl-muted);
+}

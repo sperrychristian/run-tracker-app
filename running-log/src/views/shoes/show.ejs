@@ -1,0 +1,32 @@
+<%- include('../partials/head', { title: one_shoe.name, active: 'shoes' }) %>
+
+<%
+  // how much of the shoe's life is used up, capped at 100
+  const percent_used = Math.min(100, Math.round((Number(shoe_mileage) / Number(one_shoe.retireAtMiles)) * 100));
+%>
+
+<%- include('../partials/pageHeader', { heading: one_shoe.name, subtitle: one_shoe.brand + ' | bought ' + one_shoe.purchaseDate }) %>
+
+<div class="row g-3 mb-3">
+  <div class="col-md-4"><%- include('../partials/statTile', { label: 'Miles run', value: shoe_mileage, unit: 'mi' }) %></div>
+  <div class="col-md-4"><%- include('../partials/statTile', { label: 'Miles left', value: miles_left, unit: 'mi' }) %></div>
+  <div class="col-md-4"><%- include('../partials/statTile', { label: 'Retire at', value: one_shoe.retireAtMiles, unit: 'mi' }) %></div>
+</div>
+
+<div class="rl-card rl-card-pad mb-4">
+  <div class="rl-progress">
+    <div class="rl-progress-bar <%= percent_used >= 90 ? 'warn' : '' %>" style="width: <%= percent_used %>%"></div>
+  </div>
+</div>
+
+<h2 class="section-title">Runs in these shoes</h2>
+<div class="rl-card rl-list">
+  <% one_shoe.runs.forEach(function(one_run) { %>
+    <%- include('../partials/runCard', { one_run: one_run }) %>
+  <% }) %>
+  <% if (one_shoe.runs.length === 0) { %>
+    <%- include('../partials/emptyState', { message: 'No runs in these shoes yet.' }) %>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,32 @@
+<%# one run as a row, i pass in one_run %>
+<%
+  // turning the run date into a day number and a short month name
+  const run_date = one_run.runDate instanceof Date ? one_run.runDate : new Date(one_run.runDate + 'T00:00:00');
+  const run_day = run_date.getDate();
+  const run_month = run_date.toLocaleString('en-US', { month: 'short' });
+
+  // working out pace as minutes and seconds per mile
+  const pace_total_seconds = Math.round((Number(one_run.durationMinutes) / Number(one_run.distanceMiles)) * 60);
+  const pace_minutes = Math.floor(pace_total_seconds / 60);
+  const pace_seconds = String(pace_total_seconds % 60).padStart(2, '0');
+
+  // picking a color for the effort pill
+  const effort_value = Number(one_run.effort);
+  const effort_class = effort_value >= 8 ? 'pill-hot' : (effort_value >= 5 ? 'pill-volt' : 'pill-cool');
+%>
+<a href="/runs/<%= one_run.id %>" class="run-row">
+  <div class="date-chip">
+    <div class="day"><%= run_day %></div>
+    <div class="month"><%= run_month %></div>
+  </div>
+  <div class="run-main">
+    <div class="run-title">
+      <%= one_run.route ? one_run.route.name : 'Open run' %>
+      <% if (one_run.effort) { %><span class="pill <%= effort_class %> ms-1">Effort <%= one_run.effort %></span><% } %>
+    </div>
+    <div class="run-meta">
+      <%= pace_minutes %>:<%= pace_seconds %> /mi<% if (one_run.shoe) { %> &middot; <%= one_run.shoe.name %><% } %>
+    </div>
+  </div>
+  <div class="run-distance"><%= Number(one_run.distanceMiles).toFixed(2) %><small>miles</small></div>
+</a>

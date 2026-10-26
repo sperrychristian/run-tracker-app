@@ -1,0 +1,5 @@
+<%# one number tile, i pass in label and value, and optionally unit %>
+<div class="stat-tile">
+  <div class="stat-label"><%= label %></div>
+  <div class="stat-value"><%= value %><% if (typeof unit !== 'undefined' && unit) { %><span class="stat-unit"><%= unit %></span><% } %></div>
+</div>

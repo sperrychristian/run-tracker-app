@@ -1,0 +1,37 @@
+<%- include('../partials/head', { title: 'Shoes', active: 'shoes' }) %>
+
+<%- include('../partials/pageHeader', { heading: 'Shoes', subtitle: 'Track the miles on every pair', button_href: '/shoes/new', button_text: 'Add a shoe' }) %>
+
+<div class="row g-3">
+  <% all_shoes.forEach(function(one_shoe) { %>
+    <%
+      // how much of the shoe's life is used up, capped at 100
+      const percent_used = Math.min(100, Math.round((Number(one_shoe.mileage) / Number(one_shoe.retireAtMiles)) * 100));
+
+      // picking a status label and color based on how worn the shoe is
+      const status_text = percent_used >= 90 ? 'Retire soon' : (percent_used >= 50 ? 'Broken in' : 'Fresh');
+      const status_class = percent_used >= 90 ? 'pill-hot' : (percent_used >= 50 ? 'pill-volt' : 'pill-cool');
+    %>
+    <div class="col-md-6 col-lg-4">
+      <a href="/shoes/<%= one_shoe.id %>" class="rl-card rl-card-link rl-card-pad h-100">
+        <div class="d-flex justify-content-between align-items-start mb-1">
+          <h2 class="h4 mb-0"><%= one_shoe.name %></h2>
+          <span class="pill <%= status_class %>"><%= status_text %></span>
+        </div>
+        <div class="text-muted small mb-3"><%= one_shoe.brand %></div>
+        <div class="rl-progress mb-2">
+          <div class="rl-progress-bar <%= percent_used >= 90 ? 'warn' : '' %>" style="width: <%= percent_used %>%"></div>
+        </div>
+        <div class="small text-muted"><span class="text-light fw-semibold"><%= one_shoe.mileage %></span> of <%= one_shoe.retireAtMiles %> miles</div>
+      </a>
+    </div>
+  <% }) %>
+</div>
+
+<% if (all_shoes.length === 0) { %>
+  <div class="rl-card">
+    <%- include('../partials/emptyState', { message: 'No shoes yet.', link_href: '/shoes/new', link_text: 'Add your first pair' }) %>
+  </div>
+<% } %>
+
+<%- include('../partials/footer') %>

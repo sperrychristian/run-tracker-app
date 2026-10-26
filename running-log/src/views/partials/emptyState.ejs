@@ -1,0 +1,7 @@
+<%# shown when a list has nothing in it, i pass in message and optionally link_href and link_text %>
+<div class="empty-state">
+  <p class="mb-2"><%= message %></p>
+  <% if (typeof link_href !== 'undefined') { %>
+    <a href="<%= link_href %>" class="btn btn-ghost btn-sm"><%= link_text %></a>
+  <% } %>
+</div>

@@ -1,0 +1,6 @@
+<%- include('../partials/head', { title: 'Edit run', active: 'runs' }) %>
+
+<%- include('../partials/pageHeader', { heading: 'Edit run', subtitle: one_run.runDate }) %>
+<%- include('../partials/runForm', { form_action: '/runs/' + one_run.id + '/edit', run_values: one_run }) %>
+
+<%- include('../partials/footer') %>
